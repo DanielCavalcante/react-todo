@@ -2,22 +2,28 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: './ex/index.jsx',
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader']
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx']
+  },
   output: {
     path: __dirname + '/public',
-    filename: '.bundle.js'
+    publicPath: '/',
+    filename: 'bundle.js'
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ],
   devServer: {
-    port: 8080,
-    contentBase: './public'
-  },
-  module: {
-    loaders: [{
-      test: /.jsx?$/,
-      loader: 'babel-loader',
-      exclude: '/node_modules/',
-      query: {
-        presets: ['es2015, react']
-      }
-    }]
+    contentBase: './public',
+    hot: true
   }
-}
+};
