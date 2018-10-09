@@ -1,47 +1,40 @@
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
-  entry: './src/index.jsx',
-  output: {
-    path: __dirname + '/public',
-    publicPath: '/',
-    filename: 'bundle.js'
-  },
-  devServer: {
-    contentBase: './public',
-    hot: true,
-    port: 8080
-  },
-  resolve: {
-    extensions: ['*', '.js', '.jsx'],
-    alias: {
-      modules: __dirname + '/node_modules'
-    }
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
-        query: {
-          presets: ['es2015', 'react'],
-          plugins: ['transform-object-rest-spread']
-        }
-      }, 
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract('style-loader', 'css-loader')
-      },
-      {
-        test: /\.woff|.woff2|.ttf|.eot|.svg*.*$/,
-        use: 'file'
-      }
-    ]
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin('app.css')
-  ]
-};
+	entry: './src/index.jsx',
+	output: {
+		path: __dirname + '/public',
+		filename: './app.js'
+	},
+	devServer: {
+		port: 8080,
+		contentBase: './public',
+	},
+	resolve: {
+		extensions: ['', '.js', '.jsx'],
+		alias: {
+				modules: __dirname + '/node_modules'
+		}
+	},
+	plugins: [ 
+		new ExtractTextPlugin('app.css')
+	],
+	module: {
+		loaders: [{
+				test: /.js[x]?$/,
+				loader: 'babel-loader',
+				exclude: /node_modules/,
+				query: {
+						presets: ['es2015', 'react'],
+						plugins: ['transform-object-rest-spread']
+				}
+		}, {
+				test: /\.css$/,
+				loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+		}, {
+				test: /\.woff|.woff2|.ttf|.eot|.svg*.*$/,
+				loader: 'file'
+		}]
+	}
+}
