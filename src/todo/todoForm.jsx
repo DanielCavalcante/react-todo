@@ -1,6 +1,6 @@
 import React from 'react';
-import Grid from '../template/grid'
-import IconButton from '../template/iconButton'
+import Grid from '../template/grid';
+import IconButton from '../template/iconButton';
 
 export default props => (
   <div role='form' className='todoForm'>
