@@ -22,7 +22,7 @@ export default class Todo extends Component {
   };
 
   refresh(description = '') {
-    const search = description ? `&description__regex/${description}/` : ''
+    const search = description ? `&description__regex=/${description}/` : ''
     axios.get(`${API}?sort=-createdAt${search}`).then(res => {
       this.setState({...this.state, description, list: res.data});
     });
@@ -51,13 +51,13 @@ export default class Todo extends Component {
 
   handleMarkAsDone(todo) {
     axios.put(`${API}/${todo._id}`, {...todo, done: true}).then(res => {
-      this.refresh();
+      this.refresh(this.state.description);
     });
   };
 
   handleMarkAsPending(todo) {
     axios.put(`${API}/${todo._id}`, {...todo, done: false}).then(res => {
-      this.refresh();
+      this.refresh(this.state.description);
     });
   };
 
