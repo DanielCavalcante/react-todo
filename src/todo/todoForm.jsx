@@ -4,7 +4,7 @@ import IconButton from '../template/iconButton';
 
 export default props => (
   <div role='form' className='todoForm'>
-    <Grid cols='12 9 10'>
+    <Grid cols='12 8 10'>
       <input 
         id='description' 
         className='form-control' 
